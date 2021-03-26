@@ -2,6 +2,8 @@ package Selenium;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BackandForwardTest {
 
@@ -13,13 +15,18 @@ public class BackandForwardTest {
 		FirefoxDriver driver = new FirefoxDriver();
 		driver.get("https://www.google.com");
 		
+		WebDriverWait wait = new WebDriverWait(driver,20);
+		
 		driver.findElement(By.linkText("About")).click();
-		Thread.sleep(2000);
+		wait.until(ExpectedConditions.titleContains("About Google"));
+	//	Thread.sleep(2000);
 		
 		driver.navigate().back();
-		Thread.sleep(200);
+		wait.until(ExpectedConditions.titleIs("Google"));
+	//	Thread.sleep(200);
+		
 		driver.navigate().forward();
-
+		wait.until(ExpectedConditions.titleContains("About Google"));
 	}
 
 }
